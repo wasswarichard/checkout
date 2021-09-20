@@ -1,21 +1,18 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PaymentForm from '../components/PaymentForm';
 import Review from '../components/Review';
+import Grid from "@material-ui/core/Grid";
+import Iframe from "react-iframe";
 import {paymentStateDataContext} from "../App";
-import axios from "axios";
-import * as config from '../helpers/config'
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
     },
@@ -54,55 +51,33 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Payment information', 'Review your order'];
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <PaymentForm />;
-        case 1:
-            return <Review />;
-        default:
-            throw new Error('Unknown step');
-    }
-}
 
 export default function Checkout() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
-    const [error, setError] = useState(null);
     const {paymentState} = useContext(paymentStateDataContext);
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
     };
-
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
-
-    const handlePlaceOrder = () => {
-        const amount = 10;
-        const ref = '00000000001';
-        const currency = 'USD';
-        axios.get(`${config.apiUrl}/widget?amount=${amount}&currency=${currency}&ref=${ref}`)
-            .then(response => {
-                setError(null)
-                console.log(response)
-                handleNext()
-            }).catch(error => {
-                setError(error.response);
-                console.log(error)
-        })
+    const getStepContent = (step) => {
+        switch (step) {
+            case 0:
+                return <PaymentForm handleNext={handleNext}/>;
+            case 1:
+                return <Review handleNext={handleNext} handleBack={handleBack}/>;
+            default:
+                throw new Error('Unknown step');
+        }
     }
+    const paymentUrl =`https://topup.vercel.app/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&ref=${paymentState.ref}`
+
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="absolute" color="default" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Company name
-                    </Typography>
-                </Toolbar>
-            </AppBar>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
@@ -142,18 +117,22 @@ export default function Checkout() {
                                 <Typography variant="subtitle1">
                                     Wood Smith infor@rizwanasafaris.com
                                 </Typography>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={12}>
+                                        <Iframe url={paymentUrl}
+                                                width="100%"
+                                                height="350px"
+                                                position="relative"
+                                                frameBorder="0"
+                                                display="block"
+
+                                        />
+                                    </Grid>
+                                </Grid>
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
                                 {getStepContent(activeStep)}
-                                <div className={classes.buttons}>
-                                    {activeStep !== 0 && (
-                                        <Button onClick={handleBack} className={classes.button}>Back</Button>
-                                    )}
-                                    <Button variant="contained" color="primary" onClick={handlePlaceOrder} className={classes.button}>
-                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                                    </Button>
-                                </div>
                             </React.Fragment>
                         )}
                     </React.Fragment>
