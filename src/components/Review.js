@@ -33,9 +33,7 @@ export default function Review({handleBack, handleNext}) {
     const classes = useStyles();
     const {paymentState} = useContext(paymentStateDataContext);
     const handlePlaceOrder = () => {
-        axios.get(`${config.apiUrl}/widget?amount=${paymentState.amount}&currency=${paymentState.currency}
-        $cardNumber=${paymentState.cardNumber}&expiryYear=${paymentState.expiryYear}&cvc=${paymentState.cvc}
-        $email=${paymentState.email}&ref=${paymentState.ref}&firstName=${paymentState.firstName}$lastName=${paymentState.lastName}`)
+        axios.get(`${config.apiUrl}/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&cardNumber=${paymentState.cardNumber}&cardName=${paymentState.cardName}&expiryYear=${paymentState.expiryYear}&cvc=${paymentState.cvc}&email=${paymentState.email}&ref=${paymentState.ref}&firstName=${paymentState.firstName}&lastName=${paymentState.lastName}`)
             .then(response => {
                 if(response.status === 200) {
                     handleNext()
