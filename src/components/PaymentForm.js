@@ -101,7 +101,12 @@ export default function PaymentForm({handleNext}) {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        handleNext()
+        if(formState.values.email === formState.values.confirmEmail){
+            handleNext()
+        }else {
+            setError({...error, emailError: 'Please provide similar email'})
+        }
+
     }
     return (
         <React.Fragment>
@@ -109,6 +114,9 @@ export default function PaymentForm({handleNext}) {
                 <Typography variant="h6" gutterBottom>
                     Contact Information
                 </Typography>
+                {error && error.emailError && error.emailError.length > 1 && (
+                    <Error>{error.emailError}</Error>
+                )}
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <TextField
