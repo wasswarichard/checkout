@@ -39,7 +39,7 @@ export default function Review({handleBack, handleNext}) {
                     handleNext()
                 }
             }).catch(error => {
-            console.log(error)
+            // console.log(error)
         })
     }
     return (
