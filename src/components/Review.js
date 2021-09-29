@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {paymentStateDataContext} from "../App";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
+import * as config from "../helpers/config";
 
 const useStyles = makeStyles((theme) => ({
     listItem: {
@@ -34,10 +35,12 @@ export default function Review({handleBack, handleNext}) {
     const handlePlaceOrder = () => {
         axios.get(`/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&cardNumber=${paymentState.cardNumber}&cardName=${paymentState.cardName}&expiryYear=${paymentState.expiryYear}&cvc=${paymentState.cvc}&email=${paymentState.email}&ref=${paymentState.ref}&firstName=${paymentState.firstName}&lastName=${paymentState.lastName}`)
             .then(response => {
+                console.log(response)
                 if(response.status === 200) {
                     handleNext()
                 }
             }).catch(error => {
+                console.log(error)
             // console.log(error)
         })
     }
