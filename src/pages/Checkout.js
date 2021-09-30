@@ -111,7 +111,7 @@ export default function Checkout() {
                                     Organizer
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Wood Smith infor@rizwanasafaris.com
+                                    Wood Smith info@rizwanasafaris.com
                                 </Typography>
                             </React.Fragment>
                         ) : (
