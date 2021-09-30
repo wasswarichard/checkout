@@ -74,7 +74,7 @@ export default function Checkout() {
                 throw new Error('Unknown step');
         }
     }
-    const paymentUrl =`${config.apiUrl}/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&ref=${paymentState.ref}`
+    const paymentUrl =`/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&ref=${paymentState.ref}`
 
     return (
         <React.Fragment>
