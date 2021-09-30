@@ -1,1 +1,1 @@
-export const apiUrl = `https://topup.vercel.app`;
+export const apiUrl = `https://devcorsproxy.herokuapp.com/https://topup.vercel.app`;

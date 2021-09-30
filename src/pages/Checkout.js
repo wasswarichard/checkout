@@ -8,10 +8,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import PaymentForm from '../components/PaymentForm';
 import Review from '../components/Review';
-import Grid from "@material-ui/core/Grid";
-import Iframe from "react-iframe";
 import {paymentStateDataContext} from "../App";
-import * as config from "../helpers/config";
 
 export const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -74,8 +71,6 @@ export default function Checkout() {
                 throw new Error('Unknown step');
         }
     }
-    const paymentUrl =`${config.apiUrl}/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&ref=${paymentState.ref}`
-
     return (
         <React.Fragment>
             <CssBaseline />
@@ -118,18 +113,6 @@ export default function Checkout() {
                                 <Typography variant="subtitle1">
                                     Wood Smith infor@rizwanasafaris.com
                                 </Typography>
-                                <Grid container spacing={3}>
-                                    <Grid item xs={12}>
-                                        <Iframe url={paymentUrl}
-                                                width="100%"
-                                                height="350px"
-                                                position="relative"
-                                                frameBorder="0"
-                                                display="block"
-
-                                        />
-                                    </Grid>
-                                </Grid>
                             </React.Fragment>
                         ) : (
                             <React.Fragment>

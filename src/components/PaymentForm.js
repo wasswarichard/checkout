@@ -120,12 +120,13 @@ export default function PaymentForm({handleNext}) {
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            required
-                            id="firstName"
-                            name="firstName"
-                            label="First Name"
-                            fullWidth
                             autoComplete="fname"
+                            name="firstName"
+                            required
+                            fullWidth
+                            id="firstName"
+                            label="First Name"
+                            autoFocus
                             onChange={inputChangeHandler}
                             value={formState.values.firstName}
                         />
@@ -133,12 +134,12 @@ export default function PaymentForm({handleNext}) {
                     <Grid item xs={12} sm={6}>
                         <TextField
                             required
-                            id="lastName"
-                            name="lastName"
-                            label="Last Name"
                             fullWidth
+                            id="lastName"
+                            label="Last Name"
+                            name="lastName"
                             autoComplete="lname"
-                            onChange={inputChangeHandler}
+                            onChange={event => inputChangeHandler(event)}
                             value={formState.values.lastName}
                         />
                     </Grid>
