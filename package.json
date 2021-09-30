@@ -2,8 +2,6 @@
   "name": "checkout",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
-  "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
     "@testing-library/jest-dom": "^5.11.4",
