@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {paymentStateDataContext} from "../App";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
-import * as config from "../helpers/config";
+// import * as config from "../helpers/config";
 
 const useStyles = makeStyles((theme) => ({
     listItem: {
