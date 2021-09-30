@@ -11,6 +11,7 @@ import Review from '../components/Review';
 import Grid from "@material-ui/core/Grid";
 import Iframe from "react-iframe";
 import {paymentStateDataContext} from "../App";
+import * as config from "../helpers/config";
 
 export const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -73,7 +74,7 @@ export default function Checkout() {
                 throw new Error('Unknown step');
         }
     }
-    const paymentUrl =`/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&ref=${paymentState.ref}`
+    const paymentUrl =`${config.apiUrl}/widget?amount=${paymentState.amount}&currency=${paymentState.currency}&ref=${paymentState.ref}`
 
     return (
         <React.Fragment>
